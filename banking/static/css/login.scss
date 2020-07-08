@@ -1,0 +1,93 @@
+.base-sect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 80vh;
+}
+.userentry {
+    width: 80%;
+    display: flex;
+    height: 80%;
+    background: #fff0ff;
+
+    img {
+        // grid-column: 1/4;
+        width: 60%;
+        background: #243B55;
+        pointer-events: none;
+    }
+
+    .interaction {
+        padding: 2em 4em;
+        // text-align: center;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 40%;
+        height: auto;
+        background: #141E30;
+        color: white;
+        overflow-y: auto;
+
+        h2 {
+            text-align: center;
+            font-family: "Montserrat", sans-serif;
+            font-size: 30px;
+        }
+
+        .form-area {
+            display: flex;
+            flex-direction: column;
+            align-content: space-around;
+            justify-content: center;
+            // background-color: #00ff00;
+            // justify-content: space-around;
+            label {
+                font-size: 14px;
+                font-family: "Muli", sans-serif;
+                margin-bottom: 3px;
+            }
+
+            #Confirm_Password,
+            #email,
+            #Email,
+            #Password,
+            #username,
+            #Gender {
+                width: 300px;
+                height: 30px;
+            }
+
+            #Remember {
+                // margin-bottom: 3px;
+            }
+
+            .is-invalid {
+                border: 1px solid red;
+            }
+
+            .invalid-feedback {
+                color: red;
+                font-size: 13px;
+                font-family: "Open Sans", sans-serif;
+                margin-top: -4px;
+                margin-bottom: 2px;
+            }
+
+            #Submit {
+                background: none;
+                border: none;
+                padding: 10px 12px;
+                border: 1px solid whitesmoke;
+                color: whitesmoke;
+                cursor: pointer;
+            }
+        }
+    }
+}
+input[type="checkbox"]{
+    margin-bottom: -5px;
+}

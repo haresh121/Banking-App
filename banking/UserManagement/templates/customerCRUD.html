@@ -1,0 +1,131 @@
+{% extends "base_layout.html" %}
+{% from "helpers.html" import render_field %}
+{% block content %}
+{% if type=="create" %}
+<h2>New Customer creation Form</h2>
+<section class="container-fluid create">
+    <form action="{{url_for('usermgmt.newcustomer')}}" method="post">{{ form.csrf_token }}{{render_field(form)}}</form>
+</section>
+{% elif type=="delete" %}
+<h2>Delete Customer</h2>
+<section class="container-fluid delete">
+    <form action="" method="post">{{ form.csrf_token }}{{render_field(form)}}</form>
+</section>
+{% elif type=="update" %}
+<h3>Customer Update form</h3>
+<section class="container-fluid update d-flex mt-5"  style="justify-content: space-between;">
+    <div class="container fc search" style="width: 45%; margin-left: -20px;">
+        <h4>Enter either SSNID/customerId:</h4>
+        <div class="form-group">
+            <label style="width: 100%;" for="Ssnid">SSNID</label>
+            <input type="number" class="form-control" id="Ssnid">
+        </div>
+        <div class="form-group">
+            <label style="width: 100%;" for="Cid">CustomerId</label>
+            <input type="number" class="form-control" id="Cid">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Search" id="update">
+    </div>
+    <form style="width: 50%;">
+        <h4>Update here</h4>
+        <h5 id="error" style="color: red"></h5>
+        <h5 id="done" style="color: blue"></h5>
+        <fieldset id="fieldset" disabled>
+            <div class="form-group">
+                <label style="width: 100%;" for="Name">Name</label>
+                <input type="text" class="form-control" name="name" id="Name" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="ssnid">SSNID</label>
+                <input type="number" class="form-control" name="ssnid" id="ssnid" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="cid">CustomerId</label>
+                <input type="number" class="form-control" name="cid" id="cid" value="" disabled>
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="address">Address</label>
+                <input type="text" class="form-control" id="address" name="addr" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="Age">Age</label>
+                <input type="number" class="form-control" id="Age" name="age" value="">
+            </div>
+            <input class="btn btn-warning" type="button" id="submit" value="Update">
+        </fieldset>
+    </form>
+</section>
+{% elif type == "read" %}
+<a href="{{url_for('usermgmt.view_customers')}}" type="button" class="btn btn-primary mb-2 d-flex" style="width: 126px;" name="button"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -5v5h5" />
+  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 5v-5h-5" />
+</svg>Refresh all</a>
+<section class="container-fluid customers" style="overflow-y:auto;height:35%;">
+    <h5>Customers</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">SSN ID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Last Updated</th>
+                <th scope="col">Age</th>
+                <th scope="col">Message</th>
+                <th scope="col"># of Accounts</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(customers|length) %}
+            <tr>
+                <td scope="row">{{i+1}}</td>
+                <td>{{customers[i]["customerid"]}}</td>
+                <td>{{customers[i]["name"]}}</td>
+                <td>{{customers[i]["ssnid"]}}</td>
+                <td>{{customers[i]["status"]}}</td>
+                <td>{{customers[i]["last_update"]}}</td>
+                <td>{{customers[i]["age"]}}</td>
+                <td>{{customers[i]["message"]}}</td>
+                <td>{{customers[i]["accounts"].all()|length}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+<section class="container-fluid accounts" style="overflow-y:auto;height:35%;">
+    <h5>Accounts</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer Id</th>
+                <th scope="col">Account Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">SSN ID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Last Updated</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(accounts|length) %}
+            <tr>
+                <td scope="row">{{i+1}}</td>
+                <td>{{accounts[i][0]}}</td>
+                <td>{{accounts[i][1]}}</td>
+                <td>{{accounts[i][2]}}</td>
+                <td>{{accounts[i][3]}}</td>
+                <td>{{accounts[i][4]}}</td>
+                <td>{{accounts[i][5]}}</td>
+                <td>{{accounts[i][6]}}</td>
+                <td>{{accounts[i][7]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endif %}
+{% endblock %}

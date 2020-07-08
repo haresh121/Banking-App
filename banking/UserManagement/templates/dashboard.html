@@ -1,0 +1,120 @@
+{% extends "base_layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
+<h1>Dashboard</h1>
+<section class="container-fluid dboard" style="background-color: #dfe6e9">
+    {% if userdesg=="NCE" %}
+    <div class="statusupdate container-fluid">
+        <h3>Activate Users/Accounts</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">SSN ID</th>
+                    <th scope="col">Id(A/C)</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not inactiveusers and not inactiveaccounts %}
+                <tr>
+                    <th>Nothing Exists to be accepted/rejected</th>
+                </tr>
+                {% else %}
+                {% for i in range(inactiveusers|length) %}
+                <tr>
+                    <td>{{inactiveusers[i]["name"]}}</td>
+                    <td>{{inactiveusers[i]["ssnid"]}}</td>
+                    <td>{{inactiveusers[i]["customerid"]}}</td>
+                    <td>New Customer</td>
+                    <td>{{inactiveusers[i]["status"]}}</td>
+                    <td><a href="{{url_for('usermgmt.accept', type='customer', id=inactiveusers[i]['customerid'])}}" type="button" class="btn btn-primary btn-sm">Acccept</a></td>
+                </tr>
+                {% endfor %}
+                {% for i in range(inactiveaccounts|length) %}
+                <tr>
+                    <td>{{inactiveaccounts[i][1]}}</td>
+                    <td>{{inactiveaccounts[i][2]}}</td>
+                    <td>{{inactiveaccounts[i][4]}}</td>
+                    <td>New Account</td>
+                    <td>{{inactiveaccounts[i][3]}}</td>
+                    <td><a href="{{url_for('usermgmt.accept', type='account', id=inactiveaccounts[i][4])}}" type="button" class="btn btn-primary btn-sm">Acccept</a></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="container-fluid below d-flex justify-content-between">
+        <div class="container customer border border-primary">
+            <h3>Customer Level Activities</h3>
+            <a href="{{url_for('usermgmt.newcustomer')}}" type="button" class="btn btn-primary btn-lg btn-block">Create New Customer</a>
+            <a href="{{url_for('usermgmt.view_customers')}}" type="button" class="btn btn-secondary btn-lg btn-block">View All Customers</a>
+            <a href="{{url_for('usermgmt.update_customer')}}" type="button" class="btn btn-warning btn-lg btn-block">Update Customer Values</a>
+            <button href="#" type="button" class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#DeleteUser">Delete Customer</button>
+            <div class="modal fade" id="DeleteUser" tabindex="-1" role="dialog" aria-labelledby="DeleteUser" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete a User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 id="suc1"></h5>
+                            <label for="cid" style="width:100%;">CustomerId</label>
+                            <input class="form-control" type="text" name="cid" id="cid">
+                            <br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-danger" type="button" id="delete-customer">Delete User</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container accounts border border-primary">
+            <h3>Customer Account Level Activities</h3>
+            <a href="{{url_for('usermgmt.new_account')}}" type="button" class="btn btn-primary btn-lg btn-block">Create New Account</a>
+            <a href="{{url_for('usermgmt.view_customers')}}" type="button" class="btn btn-secondary btn-lg btn-block">View All Accounts</a>
+            <button href="#" type="button" class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#DeleteUserAccount">Delete an Account</button>
+            <div class="modal fade" id="DeleteUserAccount" tabindex="-1" role="dialog" aria-labelledby="DeleteUserAccount" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete a User Account</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 id="suc2"></h5>
+                            <label for="cid1" style="width:100%;">CustomerId</label>
+                            <input class="form-control" type="text" name="cid1" id="cid1">
+                            <label for="aid" style="width:100%;">AccountId</label>
+                            <input class="form-control" type="text" name="aid" id="aid">
+                            <br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-danger" type="button" id="delete-account">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% elif userdesg == "CT" %}
+    <h4 class="mb-4">Base Funtions</h4>
+    <a href="{{url_for('usertrmgmt.view_account_info')}}" type="button" class="btn btn-primary btn-lg">View Account Information</a><br><br>
+    <a href="{{url_for('usertrmgmt.deposit_account')}}" type="button" class="btn btn-secondary btn-lg">Deposit to a Account</a><br><br>
+    <a href="{{url_for('usertrmgmt.withdraw_account')}}" type="button" class="btn btn-warning btn-lg">Withdraw Amount from Account</a><br><br>
+    <a href="{{url_for('usertrmgmt.transfer_account')}}" type="button" class="btn btn-warning btn-lg">Transfer Amount to Accounts</a><br><br>
+    <a href="{{url_for('usertrmgmt.account_statement')}}" type="button" class="btn btn-success btn-lg">Get Account Statement</a><br><br>
+    {% endif %}
+</section>
+{% endblock %}

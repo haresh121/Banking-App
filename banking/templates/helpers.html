@@ -1,0 +1,23 @@
+{% macro render_field(form) %}
+    {% for field in form %}
+        {% if field.type == "SubmitField"%}
+            {{field(class='btn btn-info')|safe}}
+        {% elif field.type == "CSRFTokenField" %}
+            {# pass #}
+        {% elif field.type == "BooleanField" %}
+            <div class="bool">{{field(**kwargs)|safe}}{{field.label}}</div><br>
+        {% else %}
+            {{field.label}}
+            {% if field.errors %}
+                {{field(class='form-control is-invalid')}}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {%else%}
+            {{field(class='form-control')|safe}}<br>
+            {%endif%}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

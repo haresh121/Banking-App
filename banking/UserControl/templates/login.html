@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+{% from 'helpers.html' import render_field %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<section class="base-sect">
+        <section class="userentry">
+            <img src="{{url_for('static', filename='assets/illustrations/login-bg.svg')}}" alt="">
+            <div class="interaction">
+                <h2>{{title}} Form</h2>
+                <form class="form-area" action="{{url_for(url)}}" method="POST">
+                    {{ form.hidden_tag() }}
+                    {{render_field(form)}}
+                </form>
+            </div>
+        </section>
+    </section>
+{% endblock %}

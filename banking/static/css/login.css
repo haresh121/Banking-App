@@ -1,0 +1,81 @@
+.base-sect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 80vh;
+}
+
+.userentry {
+  width: 80%;
+  display: flex;
+  height: 80%;
+  background: #fff0ff;
+}
+.userentry img {
+  width: 60%;
+  background: #243B55;
+  pointer-events: none;
+}
+.userentry .interaction {
+  padding: 2em 4em;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 40%;
+  height: auto;
+  background: #141E30;
+  color: white;
+  overflow-y: auto;
+}
+.userentry .interaction h2 {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+}
+.userentry .interaction .form-area {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: center;
+}
+.userentry .interaction .form-area label {
+  font-size: 14px;
+  font-family: "Muli", sans-serif;
+  margin-bottom: 3px;
+}
+.userentry .interaction .form-area #Confirm_Password,
+.userentry .interaction .form-area #email,
+.userentry .interaction .form-area #Email,
+.userentry .interaction .form-area #Password,
+.userentry .interaction .form-area #username,
+.userentry .interaction .form-area #Gender {
+  width: 300px;
+  height: 30px;
+}
+.userentry .interaction .form-area .is-invalid {
+  border: 1px solid red;
+}
+.userentry .interaction .form-area .invalid-feedback {
+  color: red;
+  font-size: 13px;
+  font-family: "Open Sans", sans-serif;
+  margin-top: -4px;
+  margin-bottom: 2px;
+}
+.userentry .interaction .form-area #Submit {
+  background: none;
+  border: none;
+  padding: 10px 12px;
+  border: 1px solid whitesmoke;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+input[type=checkbox] {
+  margin-bottom: -5px;
+}
+
+/*# sourceMappingURL=login.css.map */

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="This is the website for ABC Banking">
+    <meta name="author" content="Akhila, Ganesh, Ramya">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=chrome">
+    <title>ABC Banking-{{ title }}</title>
+    <!-- External css files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- External css files ends here -->
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg" style="color:#130f40;">
+        <a class="navbar-brand" href="{{url_for('usermgmt.dashboard')}}">ABC Bank</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('usermgmt.dashboard')}}">Home</a>
+                </li>
+                {% if not user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('usercontrol.login')}}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('usercontrol.register')}}">Rgister</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" style="text-transform: uppercase;cursor: default;;">{{user}}({{userdesg}})</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('usercontrol.logout')}}">LogOut</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <section class="container-fluid">
+        <div class="row">
+            {% if user %}
+            <section class="col-md-9 content content-main">
+            {% elif not user %}
+            <section class="col-md-12 content content-main">
+            {% endif %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {%for category,message in messages%}
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 alert alert-{{category}} alert-dismissible fade show" role="alert">
+                              <span class="type mx-auto"><img src="{{url_for('static', filename='assets/icons/info.svg')}}" alt=""></span>{{message}}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    {%endif%}
+                {% endwith %}
+
+                <br>
+
+                {% block content %}{% endblock %}
+            </section>
+            {% if user %}
+            <section class="col-md-3 content content-side">
+            {% elif not user %}
+            <section class="col-md-3 content content-side" style="display: none">
+            {% endif %}
+                <div class="navlinks">
+                    <div class="text">Quick Nav Links</div>
+                    <ul>
+                        {% if userdesg=="NCE" %}
+                        <li><a href="{{url_for('usermgmt.newcustomer')}}">Create Customer</a></li>
+                        <li><a href="{{url_for('usermgmt.view_customers')}}">View Customer/Accounts</a></li>
+                        <li><a href="{{url_for('usermgmt.update_customer')}}">Update Customer</a></li>
+                        <li><a href="{{url_for('usermgmt.new_account')}}">Create Account</a></li>
+                        {% elif userdesg == "CT" %}
+                        <li><a href="{{url_for('usertrmgmt.view_account_info')}}">Account Information</a></li>
+                        <li><a href="{{url_for('usertrmgmt.deposit_account')}}">Deposit to Account</a></li>
+                        <li><a href="{{url_for('usertrmgmt.withdraw_account')}}">Withdraw</a></li>
+                        <li><a href="{{url_for('usertrmgmt.transfer_account')}}">Transfer</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </section>
+</body>
+
+<!-- External js files -->
+
+<script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='js/axios.min.js') }}" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}" charset="utf-8"></script>
+
+<!-- External js files ends here -->
+
+</html>

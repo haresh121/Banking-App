@@ -1,0 +1,252 @@
+{% extends "base_layout.html" %}
+{% from "helpers.html" import render_field %}
+{% block content %}
+{% if type == "create" %}
+<h3>Account page</h3>
+<form action="" method="post">
+    {{form.csrf_token}}
+    {{render_field(form)}}
+</form>
+{% elif type == "view" %}
+<h3>Customer Update form</h3>
+<section class="container-fluid update d-flex mt-5" style="justify-content: space-between;">
+    <div class="container fc search" style="width: 45%; margin-left: -20px;">
+        <h4>Enter either SSNID/customerId or Account Number:</h4>
+        <div class="form-group">
+            <label style="width: 100%;" for="Ssnid">SSNID/CustomerId</label>
+            <input type="number" class="form-control" id="Ssnid">
+        </div>
+        <div class="form-group">
+            <label style="width: 100%;" for="Aid">Account ID</label>
+            <input type="number" class="form-control" id="Aid">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Search" id="search-acc"><br>
+        <div class="form-group mt-4">
+            <label style="width: 100%;" for="Aid">Accounts present for the given SSNID/CID</label>
+            <select type="number" class="form-control" id="Aid1">
+                <option value="" selected disabled>Select</option>
+            </select>
+        </div>
+    </div>
+    <form style="width: 50%;">
+        <h4>View Here</h4>
+        <h5 id="error" style="color: red"></h5>
+        <h5 id="done" style="color: blue"></h5>
+        <fieldset id="fieldset" disabled>
+            <div class="form-group">
+                <label style="width: 100%;" for="Cid">Customer ID</label>
+                <input type="text" class="form-control" name="cid" id="Cid" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="aid">Account Id</label>
+                <input type="number" class="form-control" name="aid" id="aid" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="atype">Account Type</label>
+                <input type="text" class="form-control" name="atype" id="atype" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="bal">Balance</label>
+                <input type="text" class="form-control" id="bal" name="bal" value="">
+            </div>
+        </fieldset>
+    </form>
+</section>
+{% elif type=="deposit" %}
+<h3>Deposit to account</h3>
+<section class="container-fluid update d-flex mt-5" style="justify-content: space-between;">
+    <div class="container fc search" style="width: 45%; margin-left: -20px;">
+        <h4>Enter Account Number and the amount that is to be Deposited:</h4>
+        <h6 id="e" style="color:red;"></h6>
+        <div class="form-group">
+            <label style="width: 100%;" for="Aid">Account ID</label>
+            <input type="number" class="form-control" id="Aid">
+        </div>
+        <div class="form-group">
+            <label style="width: 100%;" for="amount">Amount that is to be credited</label>
+            <input type="number" class="form-control" id="amount">
+        </div>
+        <input class="btn btn-success" type="submit" value="Approve" id="self-transac">
+    </div>
+    <form style="width: 50%;">
+        <h4>Account Information</h4>
+        <h5 id="error" style="color: red"></h5>
+        <h5 id="done" style="color: blue"></h5>
+        <fieldset id="fieldset" disabled>
+            <div class="form-group">
+                <label style="width: 100%;" for="Cid">Customer ID</label>
+                <input type="number" class="form-control" name="cid" id="Cid" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="aid">Account Id</label>
+                <input type="number" class="form-control" name="aid" id="aid" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="pbal">Previous Balance</label>
+                <input type="number" class="form-control" name="pbal" id="pbal" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="cbal">Current Balance</label>
+                <input type="number" class="form-control" id="cbal" name="cbal" value="">
+            </div>
+        </fieldset>
+    </form>
+</section>
+{% elif type=="withdraw" %}
+<h3>Withdraw from account</h3>
+<section class="container-fluid update d-flex mt-5" style="justify-content: space-between;">
+    <div class="container fc search" style="width: 45%; margin-left: -20px;">
+        <h4>Enter Account Number and the amount that is to be Deposited:</h4>
+        <h6 id="e" style="color:red;"></h6>
+        <div class="form-group d-flex align-items-center justify-content-between mt-3">
+            <label style="width: 35%;" for="Aid">Account ID</label>
+            <input type="number" class="form-control mr-2" id="Aid">
+            <input class="btn btn-success btn-sm" type="submit" value="Get Balance" id="get-bal">
+        </div>
+        <h5>Your current account Balance is: <span id="acc-bal-disp" style="color: green;text-decoration: underline;pointer-events:none;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Rs</h5>
+        <div class="form-group">
+            <label style="width: 100%;" for="amount">Amount that is to be Debited</label>
+            <input type="number" class="form-control" id="amount">
+        </div>
+        <input class="btn btn-success" type="submit" value="Withdraw" id="wdraw">
+    </div>
+    <form style="width: 50%;">
+        <h4>Account Information</h4>
+        <h5 id="error" style="color: red"></h5>
+        <h5 id="done" style="color: blue"></h5>
+        <fieldset id="fieldset" disabled>
+            <div class="form-group">
+                <label style="width: 100%;" for="aid">Account Id</label>
+                <input type="number" class="form-control" name="aid" id="aid" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="pbal">Previous Balance</label>
+                <input type="number" class="form-control" name="pbal" id="pbal" value="">
+            </div>
+            <div class="form-group">
+                <label style="width: 100%;" for="cbal">Current Balance</label>
+                <input type="number" class="form-control" id="cbal" name="cbal" value="">
+            </div>
+        </fieldset>
+    </form>
+</section>
+{% elif type=="transfer" %}
+<section class="container-fluid" style="height: 90%;">
+    <h4>Account Money Transfer</h4>
+    <form>
+        <div class="d-flex align-items-end justify-content-between">
+            <div class="col">
+                <label style="width:100%;" for="Aid">Source Account ID</label>
+                <input type="number" class="form-control" id="Aid">
+            </div>
+            <input type="button" class="btn btn-secondary" value="Get Balance" id="get-trans-bal">
+            <div class="col">
+                <label style="width:100%;" for="daid">Destination Account ID</label>
+                <input type="text" class="form-control" id="daid">
+            </div>
+            <div class="col">
+                <label style="width:100%;" for="amt">Amount</label>
+                <input type="text" class="form-control" id="amt">
+            </div>
+            <div class="col">
+                <input type="button" class="btn btn-primary" value="Transfer" id="transfer">
+            </div>
+        </div>
+        <span style="color: blue" id="acc-bal-disp" class="ml-4"></span>
+        <h5 id="error" style="color: red; text-align:center;"></h5>
+        <h5 id="done" style="color: blue; text-align:center;"></h5>
+    </form>
+    <div class="container-fluid mt-5 row">
+        <div class="container-fluid bg-light col-6 p-3 border-right border-secondary">
+            <h5>Source Account Information</h5>
+            <fieldset id="fieldset" disabled>
+                <div class="form-group">
+                    <label style="width: 100%;" for="aid1">Account Id</label>
+                    <input type="number" class="form-control" name="aid1" id="aid1" value="">
+                </div>
+                <div class="form-group">
+                    <label style="width: 100%;" for="pbal1">Previous Balance</label>
+                    <input type="number" class="form-control" name="pbal1" id="pbal1" value="">
+                </div>
+                <div class="form-group">
+                    <label style="width: 100%;" for="cbal1">Current Balance</label>
+                    <input type="number" class="form-control" id="cbal1" name="cbal1" value="">
+                </div>
+            </fieldset>
+        </div>
+        <div class="container-fluid bg-light col-6 p-3">
+            <h5>Destination Account Information</h5>
+            <fieldset id="fieldset" disabled>
+                <div class="form-group">
+                    <label style="width: 100%;" for="aid2">Account Id</label>
+                    <input type="number" class="form-control" name="aid2" id="aid2" value="">
+                </div>
+                <div class="form-group">
+                    <label style="width: 100%;" for="pbal2">Previous Balance</label>
+                    <input type="number" class="form-control" name="pbal2" id="pbal2" value="">
+                </div>
+                <div class="form-group">
+                    <label style="width: 100%;" for="cbal2">Current Balance</label>
+                    <input type="number" class="form-control" id="cbal2" name="cbal2" value="">
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</section>
+{% elif type=="statement" %}
+<h4>Get Account Statement either By # or Date</h4>
+<h5 id="error" style="color: red; text-align:center;"></h5>
+<h5 id="done" style="color: blue; text-align:center;"></h5>
+<section class="container-fluid update d-flex mt-5" style="justify-content: space-between;">
+    <div class="container fc search" style="width: 35%; margin-left: -20px;">
+        <div class="form-group">
+            <label style="width: 100%;" for="Aid">Account ID</label>
+            <input type="number" class="form-control" id="Aid">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Example select</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+        </div>
+        <input class="btn btn-success" type="submit" value="Get Trasaction By Number" id="self-state">
+        <br>
+        <h5 class="mt-3">Or</h5>
+        <div class="form-group">
+            <label style="width: 100%;" for="from">From Date</label>
+            <input type="date" class="form-control" id="from">
+        </div>
+        <div class="form-group">
+            <label style="width: 100%;" for="to">To Date</label>
+            <input type="date" class="form-control" id="to">
+        </div>
+        <input class="btn btn-success" type="submit" value="Get Trasaction By Date" id="self-state-date">
+    </div>
+    <table class="table" style="width: 60%">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Credit/Debit</th>
+                <th scope="col">Balance</th>
+            </tr>
+        </thead>
+        <tbody id="statement">
+
+        </tbody>
+    </table>
+
+</section>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  vertical-align: inherit !important;
+}
+
+.navbar {
+  padding: 0.5em 4em !important;
+  background-color: #535c68 !important;
+}
+.navbar a {
+  color: #ffffff !important;
+  display: inline-block;
+}
+.navbar li {
+  display: inline-block;
+}
+.navbar li .active a {
+  color: #eeeeee !important;
+}
+.navbar li a {
+  color: #ffffff !important;
+  display: inline-block;
+  margin-right: 1em;
+}
+.navbar li a:hover {
+  color: #eeeeee !important;
+}
+
+.container-fluid .content {
+  height: calc(100vh - 57px);
+}
+.container-fluid .content.content-main {
+  background-color: #f1f2f6;
+}
+.container-fluid .content.content-main .alert {
+  margin-top: 5px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+.container-fluid .content.content-main .type {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -10px;
+  width: 50px;
+}
+.container-fluid .content.content-side {
+  background-color: #dfe4ea;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.container-fluid .content.content-side .navlinks {
+  margin-top: -100px;
+}
+.container-fluid .content.content-side .navlinks .text {
+  text-align: center;
+  margin-bottom: 2em;
+  font-size: 20px;
+}
+.container-fluid .content.content-side .navlinks ul {
+  padding-left: 0;
+}
+.container-fluid .content.content-side .navlinks li {
+  list-style: none;
+}
+.container-fluid .content.content-side .navlinks a {
+  display: inline-block;
+  width: 100%;
+  background-color: #70a1ff;
+  color: white;
+  padding: 1em 1em;
+  margin-bottom: 0.4em;
+}
+.container-fluid .content.content-side .navlinks a:hover {
+  text-decoration: none;
+  background-color: #70a0ee;
+}
+
+/*# sourceMappingURL=base.css.map */
